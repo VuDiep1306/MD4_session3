@@ -1,0 +1,135 @@
+{
+  "info": {
+    "_postman_id": "6ee3b2ca-58f2-420e-bced-d17d26a652ed",
+    "name": "Library Management Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52104474",
+    "_collection_link": "https://go.postman.co/collection/52104474-6ee3b2ca-58f2-420e-bced-d17d26a652ed?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GetAuthor",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "AddAuthor",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": 5,\n    \"name\": \"Le Van E\",\n    \"email\": \"e@gmail.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/authors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "authors"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FindById",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": 5,\n    \"name\": \"Le Van E\",\n    \"email\": \"e@gmail.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/authors/9",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "authors",
+            "9"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Nguyen Van A update\",\n    \"email\": \"Aupdate@gmail.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/authors/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "authors",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Nguyen Van A update\",\n    \"email\": \"Aupdate@gmail.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/authors/88",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "authors",
+            "88"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FindByName",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
