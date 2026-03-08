@@ -1,27 +1,37 @@
 package com.example.library.Model;
 
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity
 public class Author {
-    private Integer id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 100, nullable = false)
     private String name;
+
     private String email;
 
-    //constructor ko tham so
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<Book> books;
+
     public Author() {
     }
 
-    //constructor co tham so
-    public Author(Integer id, String name, String email) {
+    public Author(Long id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
     }
 
-    //getter setter
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

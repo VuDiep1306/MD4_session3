@@ -6,65 +6,79 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthorService {
+
     private final AuthorRepository authorRepository;
 
-    // Constructor Injection (Dependency Injection)
+    // Constructor Injection
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
+    // Lấy tất cả tác giả
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
 
-        // tao moi
+    // Tạo mới
     public Author createAuthor(Author author) {
-        authorRepository.save(author);
-        return author;
-    }
-        // tim them id
-    public Author getAuthorById(int id) {
-        return authorRepository.findById(id);
+        return authorRepository.save(author);
     }
 
-        // Capnhat
-    public Author updateAuthor(int id, Author request) {
-        Author existingAuthor = authorRepository.findById(id);
-        if (existingAuthor != null) {
+    // Tìm theo ID
+    public Author getAuthorById(Long id) {
+        Optional<Author> author = authorRepository.findById(id);
+        return author.orElse(null);
+    }
+
+    // Cập nhật
+    public Author updateAuthor(Long id, Author request) {
+        Optional<Author> optionalAuthor = authorRepository.findById(id);
+
+        if (optionalAuthor.isPresent()) {
+            Author existingAuthor = optionalAuthor.get();
             existingAuthor.setName(request.getName());
             existingAuthor.setEmail(request.getEmail());
-            return existingAuthor;
+            return authorRepository.save(existingAuthor);
         }
+
         return null;
     }
 
-        // Xoa
-    public boolean deleteAuthor(int id) {
-        Author author = authorRepository.findById(id);
-        if (author == null) {
+    // Xóa
+    public boolean deleteAuthor(Long id) {
+        Optional<Author> optionalAuthor = authorRepository.findById(id);
+
+        if (optionalAuthor.isEmpty()) {
             return false;
         }
+
+        Author author = optionalAuthor.get();
+
         if (author.getName() != null &&
-            author.getName().equalsIgnoreCase("Admin")) {
+                author.getName().equalsIgnoreCase("Admin")) {
             return false;
         }
-        authorRepository.delete(id);
+
+        authorRepository.deleteById(id);
         return true;
     }
 
-        // Tìm kiếm Tác giả theo từ khóa
+    // Tìm kiếm theo keyword
     public List<Author> searchAuthors(String keyword) {
         List<Author> result = new ArrayList<>();
         String lowerKeyword = keyword.toLowerCase();
+
         for (Author author : authorRepository.findAll()) {
-            if(author.getName() != null &&
-                author.getName().toLowerCase().contains(lowerKeyword)) {
+            if (author.getName() != null &&
+                    author.getName().toLowerCase().contains(lowerKeyword)) {
                 result.add(author);
             }
         }
+
         return result;
     }
 }
